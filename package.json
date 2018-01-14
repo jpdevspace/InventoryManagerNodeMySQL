@@ -1,0 +1,30 @@
+{
+  "name": "inventorymanagernodemysql",
+  "version": "1.0.0",
+  "description": "The app will take in orders from customers and deplete stock from the store's inventory",
+  "main": "app.js",
+  "scripts": {
+    "test": "test this"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jpdevspace/InventoryManagerNodeMySQL.git"
+  },
+  "keywords": [
+    "node",
+    "sql",
+    "mysql",
+    "inventory"
+  ],
+  "author": "Jean Paul Giraldo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jpdevspace/InventoryManagerNodeMySQL/issues"
+  },
+  "homepage": "https://github.com/jpdevspace/InventoryManagerNodeMySQL#readme",
+  "dependencies": {
+    "console.table": "^0.9.1",
+    "inquirer": "^5.0.0",
+    "mysql": "^2.15.0"
+  }
+}
