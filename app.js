@@ -46,16 +46,26 @@ const customer = () => {
             }
         ]
     ).then( answer => {
+        // Get user input
+        let userQ = answer.quantity;    // How many items the user wants
+        let userProdID = answer.item;   // What is the ID of the item the user wants to buy
+        
         // Check if item is in stock
-        let sql = `SELECT stock_quantity FROM products WHERE item_id = ${answer.item}`;
+        let sql = `SELECT * FROM products WHERE item_id = ${userProdID}`;
 
         connection.query(sql, (err, res) => {
             if (err) throw err;
+
+            let q = res[0].stock_quantity;  // How many items in stock for that ID
+            let p = res[0].price;           // Item's price
+            let prod = res[0].product_name; // Name of item 
             
             // If it there's enough items
-            if (res[0].stock_quantity > 0) {
-                console.log("Thanks for your purchase");
-                let sql = `UPDATE products SET stock_quantity = stock_quantity - ${answer.quantity} WHERE item_id = ${answer.item}`;
+            if (q > 0) {
+                console.log(`Your total is: $ ${userQ*p}.`);
+                console.log(`Thanks for your purchase, enjoy your ${prod}`);
+                // Update inventory using the user input
+                let sql = `UPDATE products SET stock_quantity = stock_quantity - ${userQ} WHERE item_id = ${userProdID}`;
                 connection.query(sql, (err, res) => {
                     if (err) throw err;
                     showInventory();
