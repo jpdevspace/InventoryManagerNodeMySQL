@@ -64,6 +64,51 @@ const addInv = () => {
     });
 }
 
+const newProd = () => {
+    let categoriesArr = []; // Array to hold current departments from database
+    let sql = "SELECT DISTINCT department_name FROM products";
+    // Query DB to display all the different categories 
+    connection.query(sql, (err, res) => {
+        if (err) throw err;
+        // Push every unique category into an array
+        for( let i = 0; i < res.length; i++){
+            categoriesArr.push(res[i].department_name);
+        } 
+    });
+
+    inquirer.prompt(
+        [
+            {
+                name: "newItem",
+                message: "What is the name of the item you'd like to create?"
+            },
+            {
+                name: "department",
+                type: "list",
+                message: "Select the category that matches the new product?",
+                choices: categoriesArr
+            },
+            {
+                name: "price",
+                message: "What's the price for the new product?",
+            },
+            {
+                name: "quantity",
+                message: "How many of the new items are available in the invetory?",
+            }
+        ]
+    ).then( answer => {
+        let sql = `INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES ("${answer.newItem}", "${answer.department}", ${answer.price}, ${answer.quantity})`;
+        connection.query(sql, (err, res) => {
+            if (err) throw err;
+            console.log("New product created");
+            showInventory();
+            manager();
+        });
+        console.log(answer.department);
+    });
+}
+
 // Initiate with Customer rights
 const customer = () => {
     showInventory();
