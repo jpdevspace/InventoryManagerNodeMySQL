@@ -197,7 +197,7 @@ const bamazon = () => {
             name: "position",
             type: "list",
             message: "You are:",
-            choices: ["Customer", "Manager", "Supervisor"]
+            choices: ["Customer", "Manager"]
         }
     ).then( answer => {
         switch(answer.position) {
@@ -206,9 +206,6 @@ const bamazon = () => {
                 break;
             case "Manager":
                 manager();
-                break;
-            case "Supervisor":
-                supervisor();
                 break;
             default:
                 console.log("Invalid!!!");
