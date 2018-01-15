@@ -43,7 +43,25 @@ const lowInv = () => {
 };
 
 const addInv = () => {
-
+    inquirer.prompt(
+        [
+            {
+                name: "item",
+                message: "What is the ID of the item you'd like to ADD"
+            },
+            {
+                name: "quantity",
+                message: "How many units would you like to ADD?"
+            }
+        ]
+    ).then( answer => {
+        let sql = `UPDATE products SET stock_quantity = stock_quantity + ${answer.quantity} WHERE item_id = ${answer.item}`;
+        connection.query(sql, (err, res) => {
+            console.log("Item added!");
+            showInventory();
+            bamazon();
+        });
+    });
 }
 
 // Initiate with Customer rights
